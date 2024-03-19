@@ -7,20 +7,21 @@ const LoginSignup = () => {
   const [action, setAction] = useState("Sign Up");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const[email,setemail]=useState("");
+  const [email,setemail]=useState("");
   // const history = useHistory();
+  
 
   const handleSignupOrLogin = () => {
     // Perform signup or login logic here
     // For simplicity, let's just check if the username and password are not empty strings
     if (username.trim() !== "" && password.trim() !== "") {
-      // Assuming user is logged in successfully
+      // Assuming user is logged in successfully 
       if (action==="Sign Up"){
         axios
         .post("http://127.0.0.1:8000/api/auth/register", {
           username: username,
           email:email,
-        
+
           password:password ,
         })
         .then((response) => {
@@ -34,9 +35,11 @@ const LoginSignup = () => {
 
       }
       else{
+        
         axios
         .post("http://127.0.0.1:8000/api/auth/login", {
           username: username,
+          
         
           password: password,
         })
@@ -45,6 +48,7 @@ const LoginSignup = () => {
         });
        history.push('TodoWrapper');
       }
+    
      
     } else {
       alert("Please enter a valid username and password.");
@@ -64,12 +68,14 @@ const LoginSignup = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setemail(e.target.value)}
-        />
+       {action === "Sign Up" && ( // Conditionally render email input field for Sign Up action
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        )}
         <input
           type="password"
           placeholder="Password"
